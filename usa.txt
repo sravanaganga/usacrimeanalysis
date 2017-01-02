@@ -1,0 +1,64 @@
+
+1) Number of cases investigaed under each FBI code
+
+| REGISTER /home/acadgild/project/lib/piggybank.jar;
+|
+| A = load '/home/acadgild/usa.csv' using org.apache.pig.piggybank.storage.CSVExcelStorage(',','NO_MULTILINE','UNIX','SKIP_INPUT_HEADER');
+|
+| B = GROUP A BY $14(FBI CODE);
+|
+| C = FOREACH B GENERATE group as FBICODE,COUNT(A) as NO_OF_CASES;
+|
+| DUMP C;   OR   \d (DUMP THE LAST RELATION)
+|
+
+
+2) Number of cases investigated under FBI code 32
+
+| REGISTER /home/acadgild/project/lib/piggybank.jar;
+|
+| A = load '/home/acadgild/usa.csv' using org.apache.pig.piggybank.storage.CSVExcelStorage(',','NO_MULTILINE','UNIX','SKIP_INPUT_HEADER');
+|
+| B = FILTER A BY (chararray)$14 MATCHES '.*32.*';
+|
+| C = GROUP B all;
+|
+| D = FOREACH C GENERATE group as FBICODE,COUNT(B) as NO_OF_CASES_FBI_CODE;
+|
+|
+
+
+
+3) Number of arrests in theft district wise
+
+| REGISTER /home/acadgild/project/lib/piggybank.jar;
+|
+| A = load '/home/acadgild/usa.csv' using org.apache.pig.piggybank.storage.CSVExcelStorage(',','NO_MULTILINE','UNIX','SKIP_INPUT_HEADER');
+|
+| B = FILTER A BY (chararray)$5 MATCHES '.*THEFT.*';
+|
+| C = GROUP B BY $11;
+|
+| D = FOREACH C GENERATE group as DISTRICT,COUNT(B) as NO_OF_ARRESTS_IN_THEFT;
+|
+| DUMP D;
+|
+
+
+
+4) Number of cases investigated between october 2014 and october 2015 
+
+| REGISTER /home/acadgild/project/lib/piggybank.jar;
+|
+| 
+| HELP NEEDED HERE
+|
+|
+|
+|
+|
+|
+|
+|
+
+
