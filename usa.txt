@@ -17,16 +17,13 @@
 
 | REGISTER /home/acadgild/project/lib/piggybank.jar;
 |
-| A = load '/home/acadgild/usa.csv' using org.apache.pig.piggybank.storage.CSVExcelStorage(',','NO_MULTILINE','UNIX','SKIP_INPUT_HEADER');
+| load_crime  = load  '/home/acadgild/Downloads/Datasets/Crimes.csv'  using PigStorage(',')AS(ID:int,CaseNumber:chararray,Date:chararray,Block:chararray,IUCR:chararray,PrimaryType:chararray,Description:chararray,LocationDescription:chararray,Arrest:chararray,Domestic:chararray,Beat:chararray,District:chararray,Ward:chararray,CommunityArea:chararray,FBIcode:chararray,XCoordinate:chararray,YCoordinate:chararray,Year:chararray,UpdatedOn:chararray,Latitude:chararray,Longitude:chararray,Location:chararray);
 |
-| B = FILTER A BY (chararray)$14 MATCHES '.*32.*';
+|id_fbi_code = foreach load_crime generate ID,FBIcode;
 |
-| C = GROUP B all;
+|dummy = FILTER id_fbi_code by FBIcode == '32';
 |
-| D = FOREACH C GENERATE group as FBICODE,COUNT(B) as NO_OF_CASES_FBI_CODE;
-|
-|
-
+|DUMP dummy;
 
 
 3) Number of arrests in theft district wise
